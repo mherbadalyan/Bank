@@ -18,17 +18,16 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "CH_id")
-    private Long CH_id;
-
     @Column(name = "IBAN")
     private String IBAN;
 
-    @Column(name = "CH_id")
-    private Long bank_id;
-
     @Column(name = "balance")
     private Long balance;
-
+    @ManyToOne
+    @JoinColumn(name = "bank_id")
+    private Bank bank;
+    @ManyToOne
+    @JoinColumn(name = "CH_id")
+    CardHolder cardHolder;
 
 }

@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -22,4 +24,7 @@ public class Bank {
 
     @Column(name = "type")
     private Enum type;
+
+    @OneToMany(mappedBy = "bank")
+    Set<Account> accounts = new HashSet<>();
 }

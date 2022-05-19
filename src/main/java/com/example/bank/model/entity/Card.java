@@ -2,6 +2,9 @@ package com.example.bank.model.entity;
 
 
 
+import com.example.bank.model.enums.CardPaymentType;
+import com.example.bank.model.enums.CardStatus;
+import com.example.bank.model.enums.CardType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,10 +25,10 @@ public class Card {
     private Long cardNumber;
 
     @Column
-    private Enum type;
+    private CardType type;
 
     @Column(name = "payment_type")
-    private Enum paymentType;
+    private CardPaymentType paymentType;
 
     @Column
     private Long balance;
@@ -37,11 +40,12 @@ public class Card {
     private Integer cvv;
 
     @Column
-    private Enum status;
+    private CardStatus status;
 
     @Column
     private String pin;
 
-    @Column(name = "account_id")
-    private Long accountId;
+    @OneToOne
+    @JoinColumn(name = "account_id",referencedColumnName = "id")
+    private Account account;
 }

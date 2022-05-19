@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -13,6 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name= "address")
 public class Address {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,4 +25,7 @@ public class Address {
 
     @Column(name = "city")
     private String city;
+
+    @OneToMany(mappedBy = "address")
+    private Set<CardHolder> set = new HashSet<>();
 }
