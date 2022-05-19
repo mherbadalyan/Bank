@@ -21,7 +21,6 @@ import java.sql.Date;
 public class Card {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cardNumber;
 
     @Column
