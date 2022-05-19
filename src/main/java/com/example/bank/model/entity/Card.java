@@ -2,23 +2,46 @@ package com.example.bank.model.entity;
 
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 import java.sql.Date;
 
 @Entity
 @Table(name = "card")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Card {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cardNumber;
-    private String type;
-    private String paymentType;
+
+    @Column
+    private Enum type;
+
+    @Column(name = "payment_type")
+    private Enum paymentType;
+
+    @Column
     private Long balance;
+
+    @Column(name = "date")
     private Date expDate;
+
+    @Column
     private Integer cvv;
-    private String status;
+
+    @Column
+    private Enum status;
+
+    @Column
     private String pin;
+
+    @Column(name = "account_id")
     private Long accountId;
 }

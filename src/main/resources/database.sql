@@ -2,7 +2,7 @@ create table bank
 (
     id   bigint auto_increment,
     name varchar(20) not null,
-    type varchar(20) not null,
+    type enum('CENTRAL','COMMERCIAL','SPECIALISED') not null,
     constraint bank_pk
         primary key (id)
 );
@@ -53,12 +53,12 @@ create unique index card_holder_phone_uindex
 create table card
 (
     card_number  bigint                        not null,
-    type         varchar(10)                   not null,
-    payment_type varchar(20)                   not null,
+    type         enum('DEBIT','CREDIT')        not null,
+    payment_type enum('MASTER_CARD','VISA','AMERICAN_EXPRESS')   not null,
     balance      bigint      default 0         not null,
     date         date                          not null,
     cvv          int                           not null,
-    status       varchar(10) default 'CREATED' not null,
+    status       enum('CREATED','ACTIVE','BLOCKED') default 'CREATED' not null,
     pin          varchar(50)                   not null,
     account_id   bigint                        not null,
     constraint card_pk
