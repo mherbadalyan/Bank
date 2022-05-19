@@ -1,6 +1,7 @@
 package com.example.bank.model.entity;
 
 
+import com.example.bank.model.enums.BankType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,7 @@ public class Bank {
     private String name;
 
     @Column(name = "type")
-    private Enum type;
+    private BankType type;
 
     @OneToMany(mappedBy = "bank")
     Set<Account> accounts = new HashSet<>();

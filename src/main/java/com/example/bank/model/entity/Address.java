@@ -1,6 +1,7 @@
 package com.example.bank.model.entity;
 
 
+import com.example.bank.model.enums.Country;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ public class Address {
     private Long id;
 
     @Column(name = "country")
-    private String country;
+    private Country country;
 
     @Column(name = "city")
     private String city;
