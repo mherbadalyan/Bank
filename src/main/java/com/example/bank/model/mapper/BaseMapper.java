@@ -4,7 +4,7 @@ import java.util.Collection;
 
 public interface BaseMapper<T,E> {
     T convertToEntity(E dto);
-    T convertToDto(E entity);
+    E convertToDto(T entity);
     Collection<T> convertToEntityColl(Collection<E> dtoCollection);
-    Collection<T> convertToDtoColl(Collection<E> entityCollection);
+    Collection<E> convertToDtoColl(Collection<T> entityCollection);
 }
