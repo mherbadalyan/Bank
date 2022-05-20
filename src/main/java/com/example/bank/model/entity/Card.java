@@ -45,6 +45,6 @@ public class Card {
     private String pin;
 
     @OneToOne
-    @JoinColumn(name = "account_id",referencedColumnName = "id")
+    @JoinColumn(name = "account_id",referencedColumnName = "accountNumber")
     private Account account;
 }

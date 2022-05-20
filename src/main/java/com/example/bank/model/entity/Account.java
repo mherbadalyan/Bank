@@ -15,8 +15,7 @@ import javax.persistence.*;
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long accountNumber;
 
     @Column(name = "IBAN")
     private String IBAN;

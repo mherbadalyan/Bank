@@ -8,7 +8,6 @@ import java.util.Set;
 @Entity
 @Table(name = "card_holder")
 @Data
-@RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
 public class CardHolder {

@@ -19,7 +19,7 @@ public class AccountMapper implements BaseMapper <Account,AccountDto> {
     public Account convertToEntity(AccountDto dto) {
         Account account=new Account();
 
-        account.setId(dto.getId());
+        account.setAccountNumber(dto.getId());
         account.setIBAN(dto.getIBAN());
         account.setBalance(dto.getBalance());
         account.setBank(bankMapper.convertToEntity(dto.getBankDto()));
@@ -29,7 +29,7 @@ public class AccountMapper implements BaseMapper <Account,AccountDto> {
 
     @Override
     public AccountDto convertToDto(Account entity) {
-      return  AccountDto.builder().id(entity.getId()).
+      return  AccountDto.builder().id(entity.getAccountNumber()).
               IBAN(entity.getIBAN()).
               balance(entity.getBalance()).
               bankDto(bankMapper.convertToDto(entity.getBank())).
