@@ -10,6 +10,7 @@ import java.util.Set;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class CardHolder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

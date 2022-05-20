@@ -29,7 +29,7 @@ public class CardMapper implements BaseMapper<Card, CardDto>{
                 expDate(entity.getExpDate()).
                 cvv(entity.getCvv()).
                 status(entity.getStatus()).
-                accountDto(accountMapper.convertToDto).build();
+                accountDto(accountMapper.convertToDto(entity.getAccount())).build();
     }
 
 }
