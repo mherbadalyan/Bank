@@ -28,4 +28,6 @@ public class CardDto {
 
     private String pin;
 
+    private AccountDto accountDto;
+
 }

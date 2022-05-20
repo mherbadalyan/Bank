@@ -1,5 +1,6 @@
 package com.example.bank.model.dto;
 
+import com.example.bank.model.entity.Address;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,5 +14,5 @@ public class CardHolderDto {
 
     private String phone;
 
-    private Long address_id;
+    private AddressDto addressDto;
 }

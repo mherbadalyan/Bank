@@ -2,10 +2,11 @@ package com.example.bank.model.mapper;
 
 import com.example.bank.model.dto.BankDto;
 import com.example.bank.model.entity.Bank;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
-
+@Component
+@AllArgsConstructor
 public class BankMapper implements BaseMapper<Bank, BankDto>{
     @Override
     public Bank convertToEntity(BankDto dto) {
@@ -22,17 +23,4 @@ public class BankMapper implements BaseMapper<Bank, BankDto>{
                 type(entity.getType()).build();
     }
 
-    @Override
-    public Collection<Bank> convertToEntityColl(Collection<BankDto> dtoCollection) {
-        return dtoCollection.stream()
-                .map(this::convertToEntity)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public Collection<BankDto> convertToDtoColl(Collection<Bank> entityCollection) {
-         return entityCollection.stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
-    }
 }

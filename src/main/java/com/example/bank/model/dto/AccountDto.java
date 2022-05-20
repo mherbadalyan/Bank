@@ -13,7 +13,7 @@ public class AccountDto {
 
     private Long balance;
 
-    private Long bankId;
+    private BankDto bankDto;
 
-    private Long ch_id;
+    private CardHolderDto cardHolderDto;
 }
