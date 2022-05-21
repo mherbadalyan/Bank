@@ -1,7 +1,5 @@
 package com.example.bank.model.entity;
 
-
-
 import com.example.bank.model.enums.CardPaymentType;
 import com.example.bank.model.enums.CardStatus;
 import com.example.bank.model.enums.CardType;
@@ -45,6 +43,8 @@ public class Card {
     private String pin;
 
     @OneToOne
-    @JoinColumn(name = "account_id",referencedColumnName = "accountNumber")
+    @JoinColumns({
+            @JoinColumn( name = "account_number",referencedColumnName = "accountNumber"),
+            @JoinColumn(name = "account_balance",referencedColumnName = "balance")})
     private Account account;
 }

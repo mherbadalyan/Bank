@@ -14,7 +14,8 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name= "address")
+@Table(name= "address",
+        uniqueConstraints = @UniqueConstraint(columnNames={"country", "city"}))
 public class Address {
 
     @Id

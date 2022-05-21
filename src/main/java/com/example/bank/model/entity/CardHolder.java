@@ -18,7 +18,7 @@ public class CardHolder {
     @Column(name = "name")
     private  String name;
 
-    @Column(name = "phone")
+    @Column(name = "phone",unique = true,length = 15)
     private String phone;
 
     @ManyToOne

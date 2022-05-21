@@ -13,4 +13,10 @@ public class AddressDto {
     private Country country;
 
     private String city;
+
+    @Override
+    public String toString() {
+        return "country = " + country +
+                ", city = " + city ;
+    }
 }
