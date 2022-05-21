@@ -18,6 +18,7 @@ public class AddressMapper implements BaseMapper<Address, AddressDto>{
     @Override
     public AddressDto convertToDto(Address entity) {
         return AddressDto.builder().
+                id(entity.getId()).
                 country(entity.getCountry()).
                 city(entity.getCity()).build();
     }

@@ -21,7 +21,7 @@ public class CardHolder {
     @Column(name = "phone",unique = true,length = 15)
     private String phone;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "address_id",foreignKey = @ForeignKey)
     private Address address;
 

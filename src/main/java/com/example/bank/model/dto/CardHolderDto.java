@@ -14,4 +14,11 @@ public class CardHolderDto {
     private String phone;
 
     private AddressDto addressDto;
+
+    @Override
+    public String toString() {
+        return  " name = " + name  +
+                ", phone = " + phone +
+                ", address ( " + addressDto + " )";
+    }
 }

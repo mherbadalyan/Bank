@@ -18,7 +18,7 @@ public class AddressService {
     private final AddressRepository addressRepository;
 
     public Optional<AddressDto> createAddress(AddressDto addressDto) {
-        if (addressRepository.existsAddressByCityAndCountry(addressDto.getCity(),addressDto.getCountry())) {
+        if (addressRepository.existsAddressByCountryAndCity(addressDto.getCountry(),addressDto.getCity())) {
             return Optional.empty();
         }
 

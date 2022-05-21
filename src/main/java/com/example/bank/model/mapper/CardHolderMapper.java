@@ -23,6 +23,7 @@ public class CardHolderMapper implements BaseMapper<CardHolder, CardHolderDto>{
     @Override
     public CardHolderDto convertToDto(CardHolder entity) {
         return CardHolderDto.builder().
+                id(entity.getId()).
                 name(entity.getName()).
                 phone(entity.getPhone()).
         addressDto((addressMapper.convertToDto(entity.getAddress()))).build();

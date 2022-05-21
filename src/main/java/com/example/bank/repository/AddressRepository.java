@@ -5,5 +5,7 @@ import com.example.bank.model.enums.Country;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AddressRepository extends JpaRepository<Address, Long> {
-    boolean existsAddressByCityAndCountry(String city,Country country);
+    boolean existsAddressByCountryAndCity(Country country,String city);
+
+    Address getAddressByCountryAndCity(Country country,String city);
 }

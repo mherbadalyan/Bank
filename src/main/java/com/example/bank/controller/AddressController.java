@@ -53,7 +53,7 @@ public class AddressController {
 
         if (adr.isPresent()) {
             addressService.deleteAddress(id);
-            return new EntityDeletingResponse<AddressDto>().onSuccess(adr.get());
+            return new EntityDeletingResponse<AddressDto>().onSuccess(adr.get(),"Address");
         }
         logger.warn("There is not address with given id");
         return new EntityLookupResponse<AddressDto>().onFailure("Address");
