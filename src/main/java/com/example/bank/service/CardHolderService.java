@@ -48,7 +48,10 @@ public class CardHolderService {
             return Optional.empty();
         }
 
-        CardHolder cardHolderFromData = cardHolderRepository.getByPhone(phone);
+        Optional<CardHolder> cardHolderFromData = cardHolderRepository.getByPhone(phone);
+        if (cardHolderFromData.isEmpty()) {
+            return Optional.empty();
+        }
         CardHolder cardHolderToSave = cardHolderMapper.convertToEntity(cardHolderDto);
 
         if (addressRepository.existsAddressByCountryAndCity(
@@ -57,25 +60,25 @@ public class CardHolderService {
             Address existingAddress = addressRepository.getAddressByCountryAndCity(
                     cardHolderToSave.getAddress().getCountry(),
                     cardHolderToSave.getAddress().getCity());
-            cardHolderFromData.setAddress(existingAddress);
+            cardHolderFromData.get().setAddress(existingAddress);
         } else {
-            cardHolderFromData.setAddress(cardHolderToSave.getAddress());
+            cardHolderFromData.get().setAddress(cardHolderToSave.getAddress());
         }
-        cardHolderFromData.setName(cardHolderToSave.getName());
-        cardHolderFromData.setPhone(cardHolderToSave.getPhone());
+        cardHolderFromData.get().setName(cardHolderToSave.getName());
+        cardHolderFromData.get().setPhone(cardHolderToSave.getPhone());
 
-        CardHolder savedCardHolder = cardHolderRepository.save(cardHolderFromData);
+        CardHolder savedCardHolder = cardHolderRepository.save(cardHolderFromData.get());
         return Optional.of(cardHolderMapper.convertToDto(savedCardHolder));
     }
 
 
 
-    public void deleteCardHolder(Long id) {
-        cardHolderRepository.deleteById(id);
+    public void deleteCardHolder(String phone) {
+        cardHolderRepository.deleteByPhone(phone);
     }
 
-    public Optional<CardHolderDto> getCardHolder(Long id) {
-        Optional<CardHolder> cardHolderDto = cardHolderRepository.findById(id);
+    public Optional<CardHolderDto> getCardHolder(String phone) {
+        Optional<CardHolder> cardHolderDto = cardHolderRepository.getByPhone(phone);
 
         if (cardHolderDto.isEmpty()) {
             return Optional.empty();
