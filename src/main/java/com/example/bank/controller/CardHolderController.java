@@ -52,28 +52,28 @@ public class CardHolderController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCardHolder(@PathVariable("id") Long id) {
+    public ResponseEntity<?> deleteCardHolder(@PathVariable("id") String phone) {
         logger.info("Received a request to delete a Card Holder.");
-        Optional<CardHolderDto> opCardHold = cardHolderService.getCardHolder(id);
+        Optional<CardHolderDto> opCardHold = cardHolderService.getCardHolder(phone);
 
         if (opCardHold.isPresent()) {
-            cardHolderService.deleteCardHolder(id);
+            cardHolderService.deleteCardHolder(phone);
             return new EntityDeletingResponse<CardHolderDto>().onSuccess(opCardHold.get(),"Card Holder");
         }
         logger.warn("There is not address with given id");
         return new EntityLookupResponse<CardHolderDto>().onFailure("Card Holder");
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getCardHolder(@PathVariable("id") Long id) {
+    @GetMapping("/{phone}")
+    public ResponseEntity<?> getCardHolder(@PathVariable("phone") String phone) {
         logger.info("Received a request to get a Card Holder.");
-        Optional<CardHolderDto> cardHolderDto = cardHolderService.getCardHolder(id);
+        Optional<CardHolderDto> cardHolderDto = cardHolderService.getCardHolder(phone);
 
         if (cardHolderDto.isPresent()) {
-            logger.info("Card Holder with given id found");
+            logger.info("Card Holder with given phone found");
             return new EntityLookupResponse<CardHolderDto>().onSuccess(cardHolderDto.get());
         }
-        logger.warn("There is not CArd Holder with given id");
+        logger.warn("There is not Card Holder with given id");
         return new EntityLookupResponse<CardHolderDto>().onFailure("Card Holder");
     }
 }
