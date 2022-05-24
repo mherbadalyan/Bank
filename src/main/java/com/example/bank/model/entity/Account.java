@@ -4,6 +4,7 @@ package com.example.bank.model.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Setter
@@ -28,5 +29,6 @@ public class Account {
     @JoinColumn(name = "CH_id")
     CardHolder cardHolder;
 
-
+    @OneToOne(mappedBy = "account")
+    Card card;
 }

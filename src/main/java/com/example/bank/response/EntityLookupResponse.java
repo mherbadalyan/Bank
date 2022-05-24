@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 public class EntityLookupResponse<T> {
 
     public ResponseEntity<?> onFailure(String entityName) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(entityName + " with given properties does not exist.");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(entityName + " with given params does not exist.");
     }
 
     public ResponseEntity<?> onSuccess(T entityDto) {

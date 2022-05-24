@@ -18,11 +18,9 @@ public class CardDto {
 
     private CardPaymentType paymentType;
 
-    private Long balance;
-
     private Date expDate;
 
-    private Integer cvv;
+    private String cvv;
 
     private CardStatus status;
 

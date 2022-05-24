@@ -71,8 +71,6 @@ public class CardHolderService {
         return Optional.of(cardHolderMapper.convertToDto(savedCardHolder));
     }
 
-
-
     public void deleteCardHolder(String phone) {
         cardHolderRepository.deleteByPhone(phone);
     }

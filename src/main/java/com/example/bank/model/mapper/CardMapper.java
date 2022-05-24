@@ -25,9 +25,9 @@ public class CardMapper implements BaseMapper<Card, CardDto>{
                 cardNumber(entity.getCardNumber()).
                 type(entity.getType()).
                 paymentType(entity.getPaymentType()).
-                balance(entity.getBalance()).
                 expDate(entity.getExpDate()).
                 cvv(entity.getCvv()).
+                pin(entity.getPin()).
                 status(entity.getStatus()).
                 accountDto(accountMapper.convertToDto(entity.getAccount())).build();
     }

@@ -4,6 +4,7 @@ import com.example.bank.model.enums.CardPaymentType;
 import com.example.bank.model.enums.CardStatus;
 import com.example.bank.model.enums.CardType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 
 import java.sql.Date;
 
+@Builder
 @Entity
 @Table(name = "card")
 @Data
@@ -27,14 +29,12 @@ public class Card {
     @Column(name = "payment_type")
     private CardPaymentType paymentType;
 
-    @Column
-    private Long balance;
 
     @Column(name = "date")
     private Date expDate;
 
     @Column
-    private Integer cvv;
+    private String cvv;
 
     @Column
     private CardStatus status;
@@ -42,9 +42,8 @@ public class Card {
     @Column
     private String pin;
 
+
     @OneToOne
-    @JoinColumns({
-            @JoinColumn( name = "account_number",referencedColumnName = "accountNumber"),
-            @JoinColumn(name = "account_balance",referencedColumnName = "balance")})
-    private Account account;
+    @JoinColumn(name = "account_number",referencedColumnName = "accountNumber")
+    Account account;
 }
