@@ -7,13 +7,14 @@ import java.util.Set;
 
 @Entity
 @Table(name = "card_holder")
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class CardHolder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "name")
     private  String name;

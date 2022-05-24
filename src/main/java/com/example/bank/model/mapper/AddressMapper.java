@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class AddressMapper implements BaseMapper<Address, AddressDto>{
+
     @Override
     public Address convertToEntity(AddressDto dto) {
         Address address = new Address();
@@ -15,6 +16,7 @@ public class AddressMapper implements BaseMapper<Address, AddressDto>{
         address.setCity(dto.getCity());
         return address;
     }
+
     @Override
     public AddressDto convertToDto(Address entity) {
         return AddressDto.builder().

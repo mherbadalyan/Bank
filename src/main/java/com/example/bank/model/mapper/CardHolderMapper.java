@@ -13,6 +13,8 @@ public class CardHolderMapper implements BaseMapper<CardHolder, CardHolderDto>{
     @Override
     public CardHolder convertToEntity(CardHolderDto dto) {
         CardHolder cardHolder = new CardHolder();
+
+        cardHolder.setId(dto.getId());
         cardHolder.setName(dto.getName());
         cardHolder.setPhone(dto.getPhone());
         cardHolder.setAddress(addressMapper.convertToEntity(dto.getAddressDto()));

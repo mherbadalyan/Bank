@@ -1,14 +1,13 @@
 package com.example.bank.model.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name= "account")
@@ -17,11 +16,11 @@ public class Account {
     @Id
     private Long accountNumber;
 
-    @Column(name = "IBAN")
+    @Column(name = "IBAN", unique = true)
     private String IBAN;
 
-    @Column(name = "balance")
-    private Long balance;
+    @Column(name = "balance", columnDefinition = "long default 0l")
+    private Long balance = 0L;
     @ManyToOne
     @JoinColumn(name = "bank_id")
     private Bank bank;
