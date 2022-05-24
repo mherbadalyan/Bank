@@ -6,8 +6,6 @@ import com.example.bank.response.EntityDeletingResponse;
 import com.example.bank.response.EntityLookupResponse;
 import com.example.bank.response.EntityUpdatingResponse;
 import com.example.bank.service.BankService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;

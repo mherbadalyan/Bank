@@ -1,9 +1,7 @@
 package com.example.bank.controller;
 
 import com.example.bank.model.dto.AccountDto;
-import com.example.bank.model.dto.CardHolderDto;
 import com.example.bank.model.entity.Account;
-import com.example.bank.model.entity.CardHolder;
 import com.example.bank.response.EntityCreatingResponse;
 import com.example.bank.response.EntityDeletingResponse;
 import com.example.bank.response.EntityLookupResponse;

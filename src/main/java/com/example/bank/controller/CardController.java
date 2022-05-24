@@ -1,9 +1,6 @@
 package com.example.bank.controller;
 
-import com.example.bank.model.dto.AddressDto;
 import com.example.bank.model.dto.CardDto;
-import com.example.bank.model.entity.Card;
-import com.example.bank.model.entity.CardHolder;
 import com.example.bank.model.entity.CardStatusRequest;
 import com.example.bank.model.enums.CardStatus;
 import com.example.bank.response.EntityCreatingResponse;
