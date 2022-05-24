@@ -1,14 +1,11 @@
 package com.example.bank.service;
 
 import com.example.bank.controller.CardController;
-import com.example.bank.model.entity.Account;
-import com.example.bank.model.entity.Transfer;
-import com.example.bank.repository.AccountRepository;
-import com.example.bank.repository.CardRepository;
+import com.example.bank.model.entity.*;
+import com.example.bank.repository.*;
 import com.example.bank.response.TransferResponse;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +37,31 @@ public class TransferService<T> {
 
         accountRepository.save(accFrom.get());
         accountRepository.save(accTo.get());
+        logger.info("Successfully money transfer");
+        return new TransferResponse<Transfer>().onSuccess();
+    }
+
+    public ResponseEntity<?> fromCardToCard(Transfer transfer) {
+        Optional<Card> cardFrom = cardRepository.findById(transfer.getFrom());
+        Optional<Card> cardTo = cardRepository.findById(transfer.getTo());
+
+        if (cardFrom.isEmpty() || cardTo.isEmpty()) {
+            logger.info("Incorrect card number");
+            return new TransferResponse<Transfer>().incorrectCardNumber();
+        }
+        if (cardFrom.get().getAccount().getBalance() < transfer.getAmount()) {
+            logger.info("Insufficient amount");
+            return new TransferResponse<Transfer>().insufficientAmount();
+        }
+
+        Account accFrom = cardFrom.get().getAccount();
+        Account accTo = cardTo.get().getAccount();
+
+        accFrom.setBalance(accFrom.getBalance() - transfer.getAmount());
+        accTo.setBalance(accTo.getBalance() + transfer.getAmount());
+
+        accountRepository.save(accFrom);
+        accountRepository.save(accTo);
         logger.info("Successfully money transfer");
         return new TransferResponse<Transfer>().onSuccess();
     }

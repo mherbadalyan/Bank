@@ -34,9 +34,9 @@ public class TransferController {
             case "fromCardToAccount":
                 break;
             case "fromCardToCard":
-                break;
+                return transferService.fromCardToCard(transfer);
         }
-        logger.warn("Transfer failed.");
-        return new TransferResponse<>().onFailure("Transfer");
+        logger.warn("Transfer failed.Wrong transfer type.");
+        return new TransferResponse<>().onFailure();
     }
 }

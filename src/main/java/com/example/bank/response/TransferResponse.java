@@ -5,8 +5,8 @@ import org.springframework.http.ResponseEntity;
 
 public class TransferResponse<T> {
 
-    public ResponseEntity<?> onFailure(String entityName) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(entityName + " with given params does not exist.");
+    public ResponseEntity<?> onFailure() {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Transfer with given params does not exist.");
     }
 
     public ResponseEntity<?> onSuccess() {
@@ -19,5 +19,9 @@ public class TransferResponse<T> {
 
     public ResponseEntity<?> incorrectAccount() {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong account number in request.");
+    }
+
+    public ResponseEntity<?> incorrectCardNumber() {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong card number in request.");
     }
 }
