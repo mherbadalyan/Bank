@@ -30,9 +30,9 @@ public class TransferController {
             case "fromAccountToAccount":
                 return transferService.fromAccountToAccount(transfer);
             case "fromAccountToCard":
-                break;
+                return transferService.fromAccountToCard(transfer);
             case "fromCardToAccount":
-                break;
+                return  transferService.fromCardToAccount(transfer);
             case "fromCardToCard":
                 return transferService.fromCardToCard(transfer);
         }
