@@ -14,21 +14,24 @@ import org.slf4j.LoggerFactory;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/bank/addbank")
-
+@RequestMapping("/bank/addBank")
 public class BankController {
 
     private final BankService bankService;
     private static final Logger logger = LoggerFactory.getLogger(CardController.class);
 
-
-
     public BankController(BankService bankService) {
         this.bankService = bankService;
     }
 
-
-
+    /**
+     * Creating bank
+     * request body {
+     *            "id":"3digit number"
+     *          "name":"Ineco",
+     *          "type":"CENTRAL"
+     *               }
+     */
     @PostMapping
     public ResponseEntity<?> createBank(@RequestBody BankDto bankDto) {
         logger.info("Received a request to create an Bank.");
@@ -42,7 +45,10 @@ public class BankController {
         return new EntityCreatingResponse<BankDto>().onSuccess(opBank.get());
     }
 
-
+    /**
+     * Getting bank by id
+     * @pathVariable bank id
+     */
     @GetMapping("/{id}")
     public ResponseEntity<?> getBank(@PathVariable("id") Long id) {
         logger.info("Received a request to get a Bank.");
@@ -56,7 +62,10 @@ public class BankController {
         return new EntityLookupResponse<BankDto>().onFailure("bank");
     }
 
-
+    /**
+     * Deleting bank by id
+     * @pathVariable bank id
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteBank(@PathVariable("id") Long id) {
         logger.info("Received a request to delete a Bank.");
@@ -70,6 +79,13 @@ public class BankController {
         return new EntityLookupResponse<BankDto>().onFailure("bank");
     }
 
+    /**
+     * Updating exist bank
+     * request body {
+     *       "name":"Ineco",
+     *       "type":"CENTRAL"
+     *              }
+     */
     @PutMapping("/{id}")
     public ResponseEntity<?> updateBank(@RequestBody BankDto bankDto ,
                                               @PathVariable("id") Long id) {
@@ -83,8 +99,4 @@ public class BankController {
         logger.info("Bank successfully updated.");
         return new EntityUpdatingResponse<BankDto>().onSuccess(bankDtoOptional.get());
     }
-
-
-
-
 }

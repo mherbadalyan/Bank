@@ -43,7 +43,7 @@ public class Card {
     private String pin;
 
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "account_number",referencedColumnName = "accountNumber")
     Account account;
 }

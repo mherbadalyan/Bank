@@ -24,6 +24,17 @@ public class CardHolderController {
 
     private static final Logger logger = LoggerFactory.getLogger(CardController.class);
 
+    /**
+     * Creating cardHolder
+     * requestBody {
+     *          "name":"Suren Badalyan",
+     *         "phone":"055557151",
+     *    "addressDto":{
+     *       "country":"ARMENIA",
+     *          "city":"Aparan"
+     *                }
+     * }
+     */
     @PostMapping
     public ResponseEntity<?> createCardHolder(@RequestBody CardHolderDto cardHolderDto) {
         logger.info("Received a request to create an CardHolder.");
@@ -37,6 +48,18 @@ public class CardHolderController {
         return new EntityCreatingResponse<CardHolderDto>().onSuccess(opCardHold.get());
     }
 
+    /**
+     * Updating card holder
+     * request body {
+     *     "name":"Suren Badalyan",
+     *     "phone":"055557151",
+     *     "addressDto":{
+     *         "country":"ARMENIA",
+     *         "city":"Aparan"
+     *     }
+     * }
+     * @pathVariable card holder phone
+     */
     @PutMapping("/{phone}")
     public ResponseEntity<?> updateCardHolder(@RequestBody CardHolderDto cardHolderDto ,
                                               @PathVariable("phone") String phone) {
@@ -51,8 +74,12 @@ public class CardHolderController {
         return new EntityUpdatingResponse<CardHolderDto>().onSuccess(opCardHold.get());
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCardHolder(@PathVariable("id") String phone) {
+    /**
+     * Deleting cardHolder by phone
+     * @pathVariable cardHolder phone
+     */
+    @DeleteMapping("/{phone}")
+    public ResponseEntity<?> deleteCardHolder(@PathVariable("phone") String phone) {
         logger.info("Received a request to delete a Card Holder.");
         Optional<CardHolderDto> opCardHold = cardHolderService.getCardHolder(phone);
 
@@ -64,6 +91,10 @@ public class CardHolderController {
         return new EntityLookupResponse<CardHolderDto>().onFailure("Card Holder");
     }
 
+    /**
+     * Getting cardHolder by phone
+     * @pathVariable cardHolder phone
+     */
     @GetMapping("/{phone}")
     public ResponseEntity<?> getCardHolder(@PathVariable("phone") String phone) {
         logger.info("Received a request to get a Card Holder.");

@@ -10,6 +10,7 @@ import com.example.bank.service.AccountService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,17 @@ public class AccountController {
 
     private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
 
+    /**
+     * Creating account
+     * request body {
+     *           "bankDto":{
+     *         "id":205
+     *                     },
+     *     "cardHolderDto":{
+     *         "phone":"055557121"
+     *                     }
+     *               }
+     */
     @PostMapping
     public ResponseEntity<?> createAccount(@RequestBody AccountDto accountDto) {
         logger.info("Received a request to create an Account.");
@@ -31,12 +43,18 @@ public class AccountController {
 
         if (opAccount.isEmpty()) {
             logger.warn("There is not Card holder ot Bank with this params.");
-            return new EntityCreatingResponse<Account>().onFailure("Account");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    "There is not Card holder ot Bank with this params."
+            );
         }
         logger.info("Account successfully created.");
         return new EntityCreatingResponse<AccountDto>().onSuccess(opAccount.get());
     }
 
+    /**
+     * Getting account by account number
+     * @pathParam account number
+     */
     @GetMapping("/{accountNumber}")
     public ResponseEntity<?> getCardHolder(@PathVariable("accountNumber") Long accountNumber) {
         logger.info("Received a request to get a Account.");
@@ -50,6 +68,10 @@ public class AccountController {
         return new EntityLookupResponse<AccountDto>().onFailure("Account");
     }
 
+    /**
+     * Deleting account by account number
+     * @pathParam account number
+     */
     @DeleteMapping("/{accountNumber}")
     public ResponseEntity<?> deleteAccount(@PathVariable("accountNumber") Long accountNummber) {
         logger.info("Received a request to delete a Account.");
@@ -63,6 +85,17 @@ public class AccountController {
         return new EntityLookupResponse<AccountDto>().onFailure("Account");
     }
 
+    /**
+     * Updating account
+     * request body {
+     *           "bankDto":{
+     *         "id":205
+     *                     },
+     *     "cardHolderDto":{
+     *         "phone":"055557121"
+     *                     }
+     *               }
+     */
     @PutMapping("/{accountNumber}")
     public ResponseEntity<?> updateAccount(@RequestBody AccountDto accountDto ,
                                               @PathVariable("accountNumber") Long accountNumber) {

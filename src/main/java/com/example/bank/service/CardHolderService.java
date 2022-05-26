@@ -44,9 +44,6 @@ public class CardHolderService {
     }
 
     public Optional<CardHolderDto> updateCardHolder(CardHolderDto cardHolderDto,String phone) {
-        if (!cardHolderRepository.existsCardHolderByPhone(phone)) {
-            return Optional.empty();
-        }
 
         Optional<CardHolder> cardHolderFromData = cardHolderRepository.getByPhone(phone);
         if (cardHolderFromData.isEmpty()) {

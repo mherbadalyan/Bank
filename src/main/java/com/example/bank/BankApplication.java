@@ -13,11 +13,5 @@ public class BankApplication {
         SpringApplication.run(BankApplication.class, args);
     }
 
-    @Bean
-    public CommandLineRunner commandLineRunner(CardRepository cardRepository) {
-        return args -> {
-            cardRepository.findById(5126271022659425L);
-        };
-    }
 
 }

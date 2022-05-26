@@ -22,6 +22,18 @@ public class TransferController {
 
     private final TransferService<Transfer> transferService;
 
+    /**
+     * Transferring money
+     * @pathVariable "fromAccountToAccount" or
+     *                "fromAccountToCard"   or
+     *                "fromCardToAccount"   or
+     *                "fromCardToCard"
+     * requestBody {
+     *     "from":5147552406426111,
+     *     "to":5233210117020158,
+     *     "amount":7000
+     *             }
+     */
     @PostMapping("/{fromTo}")
     public ResponseEntity<?> transfer(@RequestBody Transfer transfer,
                                       @PathVariable("fromTo")String fromTo) {

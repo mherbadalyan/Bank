@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 public class AccountDto {
 
-    private Long id;
+    private Long accountNumber;
 
     private String IBAN;
 

@@ -5,6 +5,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -21,7 +23,7 @@ public class Account {
     private String IBAN;
 
     @Column(name = "balance")
-    private Long balance = 0L;
+    private Long balance;
     @ManyToOne
     @JoinColumn(name = "bank_id")
     private Bank bank;
@@ -29,6 +31,6 @@ public class Account {
     @JoinColumn(name = "CH_id")
     CardHolder cardHolder;
 
-    @OneToOne(mappedBy = "account")
-    Card card;
+    @OneToMany(mappedBy = "account")
+    Set<Card> card = new HashSet<>();
 }

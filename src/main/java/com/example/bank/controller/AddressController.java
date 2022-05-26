@@ -20,6 +20,16 @@ public class AddressController {
 
     private final AddressService addressService;
     private static final Logger logger = LoggerFactory.getLogger(AddressController.class);
+
+    /**
+     * Creating address
+     * request body example
+     *          {
+     *         "country":"ARMENIA",
+     *         "city":"Aparan"
+     *          }
+     * @return ResponseEntity
+     */
     @PostMapping
     public ResponseEntity<?> createAddress(@RequestBody AddressDto addressDto) {
         logger.info("Received a request to create an address.");
@@ -33,6 +43,11 @@ public class AddressController {
         return new EntityCreatingResponse<AddressDto>().onSuccess(adr.get());
     }
 
+    /**
+     * Searching address by id
+     * @pathParam address id
+     * @return ResponseEntity
+     */
     @GetMapping("/{id}")
     public ResponseEntity<?> getAddress(@PathVariable("id") Long id) {
         logger.info("Received a request to get an address.");
@@ -46,6 +61,11 @@ public class AddressController {
         return new EntityLookupResponse<AddressDto>().onFailure("Address");
     }
 
+    /**
+     * deleting address by id
+     * @pathVariable address id
+     * @return ResponseEntity
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteAddress(@PathVariable("id") Long id) {
         logger.info("Received a request to delete an address.");

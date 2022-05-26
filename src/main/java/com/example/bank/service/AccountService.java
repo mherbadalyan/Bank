@@ -1,9 +1,7 @@
 package com.example.bank.service;
 
 import com.example.bank.model.dto.AccountDto;
-import com.example.bank.model.dto.CardHolderDto;
 import com.example.bank.model.entity.Account;
-import com.example.bank.model.entity.Address;
 import com.example.bank.model.entity.Bank;
 import com.example.bank.model.entity.CardHolder;
 import com.example.bank.model.mapper.AccountMapper;
@@ -16,12 +14,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.Random;
 
 @Service
 @AllArgsConstructor
 public class AccountService{
-
+    private GeneratorService genServ;
     private final AccountMapper accountMapper;
 
     private final AccountRepository accountRepository;
@@ -35,69 +32,38 @@ public class AccountService{
     private final BankMapper bankMapper;
 
 
-
-    private long cardNumberGen16Digit() {
-        Random rng =new Random();
-        long first16 = (rng.nextLong() % 100000000000000L) + 5200000000000000L;
-        return first16;
-    }
-
-
-    private String ibanGenerate() {
-        Random rng =new Random();
-        long first16 = (rng.nextLong() % 100000000000000L) + 5200000000000000L;
-        return "AM"+first16;
-    }
-
-
-
-
-
     public Optional<AccountDto> createAccount(AccountDto accountDto) {
-        if (!cardHolderRepository.existsCardHolderByPhone(
-                accountDto.getCardHolderDto().getPhone())) {
-            return Optional.empty();
-        }
-        if (!bankRepository.existsBankById(accountDto.getBankDto().getId())) {
-            return Optional.empty();
-        }
-
-//        if (cardHolderRepository.existsCardHolderByPhone(
-//                accountDto.getCardHolderDto().getPhone())) {
-//            Optional<CardHolder> existingCardHolder =
-//                    cardHolderRepository.getByPhone(
-//                            accountDto.getCardHolderDto().getPhone());
-//            accountDto.setCardHolderDto(cardHolderMapper.
-//                    convertToDto(existingCardHolder.get()));
-//        }
-
-        Optional<CardHolder> existingCardHolder =
-                cardHolderRepository.getByPhone(
+        Optional<CardHolder> existingCardHolder = cardHolderRepository.getByPhone(
                         accountDto.getCardHolderDto().getPhone());
-        if (existingCardHolder.isPresent()) {
-            accountDto.setCardHolderDto(cardHolderMapper.
-                    convertToDto(existingCardHolder.get()));
+
+        if (existingCardHolder.isEmpty()) {
+            return Optional.empty();
+        }
+        accountDto.setCardHolderDto(cardHolderMapper.convertToDto(existingCardHolder.get()));
+
+        Optional<Bank> existingBank = bankRepository.findById(accountDto.getBankDto().getId());
+
+        if (existingBank.isEmpty()) {
+            return Optional.empty();
         }
 
-        if (bankRepository.existsBankById(
-                accountDto.getBankDto().getId())) {
-            Bank existingBank = bankRepository.getById(
-                    accountDto.getBankDto().getId());
-            accountDto.setBankDto(bankMapper.convertToDto(existingBank));
-        }
+        accountDto.setBankDto(bankMapper.convertToDto(existingBank.get()));
 
-        //need Update
-        Long accountNumber1 = cardNumberGen16Digit();
-        String iban = ibanGenerate()+accountDto.getBankDto().getId();
+
+        Long accountNumber ;
+        do {
+            accountNumber= genServ.accountNumberGen16Digit(existingBank.get().getId());
+        }while (accountRepository.existsById(accountNumber));
+
+        String iban = genServ.ibanGenerate(
+                existingCardHolder.get().getAddress().getCountry().name().substring(0,3),
+                accountDto.getBankDto().getId());
+
+        accountDto.setAccountNumber(accountNumber);
+        accountDto.setIBAN(iban);
+        accountDto.setBalance(0L);
 
         Account accountToSave = accountMapper.convertToEntity(accountDto);
-
-
-        accountToSave.setAccountNumber(accountNumber1);
-        accountToSave.setIBAN(iban);
-        accountToSave.setBalance(0L);
-
-
 
         Account savedAccount = accountRepository.save(accountToSave);
 
@@ -151,11 +117,4 @@ public class AccountService{
         }
         return Optional.of(accountMapper.convertToDto(accountDto.get()));
     }
-
-
-
-
-
-
-
 }

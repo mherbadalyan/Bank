@@ -18,22 +18,23 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Optional;
-import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
 public class CardService {
-
+    private final GeneratorService genServ;
     private static final Logger logger = LoggerFactory.getLogger(CardController.class);
     private final CardMapper cardMapper;
     private final CardRepository cardRepository;
     private final AccountRepository accountRepository;
     private final EncryptDecryptPassword encDec;
 
-    public Optional<CardDto> createCard(CardDto cardDto) {
-        if (accountRepository.existsById(cardDto.getAccountDto().getId())) {
+    private final AccountService accountService;
 
-            Optional<Account> opAccountFromData = accountRepository.findAccountByAccountNumber(cardDto.getAccountDto().getId());
+    public Optional<CardDto> createCard(CardDto cardDto) {
+        if (accountRepository.existsById(cardDto.getAccountDto().getAccountNumber())) {
+
+            Optional<Account> opAccountFromData = accountRepository.findById(cardDto.getAccountDto().getAccountNumber());
             if (opAccountFromData.isEmpty()) {
                 return Optional.empty();
             }
@@ -48,20 +49,24 @@ public class CardService {
                 cardToSave.getAccount().setBalance(50000L);
             }
 
-            Long cardNumber = cardNumberGen16Digit();
+            Long cardNumber;
+            do {
+                cardNumber= genServ.cardNumberGen16Digit(cardToSave.getPaymentType().name());
+            }while (cardRepository.existsById(cardNumber));
+
             cardToSave.setCardNumber(cardNumber);
 
             cardToSave.setStatus(CardStatus.CREATED);
 
-            String decryptCvv = generateCvv();
+            String decryptCvv = genServ.generateCvv();
             String encryptCvv = encDec.encrypt(decryptCvv);
             cardToSave.setCvv(encryptCvv);
 
-            String decryptPin = generatePin();
+            String decryptPin = genServ.generatePin();
             String encryptPin = encDec.encrypt(decryptPin);
             cardToSave.setPin(encryptPin);
 
-            Date date = Date.valueOf(LocalDate.now());
+            Date date = Date.valueOf(LocalDate.now().plusYears(3));
             cardToSave.setExpDate(date);
 
             Card savedCard = cardRepository.save(cardToSave);
@@ -76,22 +81,8 @@ public class CardService {
         return Optional.empty();
     }
 
-    public Long cardNumberGen16Digit() {
-        Random rng =new Random();
-        return (rng.nextLong() % 100000000000000L) + 5200000000000000L;
-    }
     private boolean isCredit(CardType type) {
         return type == CardType.CREDIT;
-    }
-
-   public String generateCvv() {
-        Random rnd = new Random();
-        return String.valueOf(rnd.nextInt(900) + 100);
-   }
-
-    public String generatePin() {
-        Random rnd = new Random();
-        return String.valueOf(rnd.nextInt(9000) + 1000);
     }
 
     public Optional<CardDto> getCard(Long cardNumber) {
