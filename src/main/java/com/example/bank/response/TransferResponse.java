@@ -24,4 +24,8 @@ public class TransferResponse<T> {
     public ResponseEntity<?> incorrectCardNumber() {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong card number in request.");
     }
+
+    public ResponseEntity<?> blockedCard() {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Selected card is not active.");
+    }
 }

@@ -5,7 +5,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -31,6 +33,6 @@ public class Account {
     @JoinColumn(name = "CH_id")
     CardHolder cardHolder;
 
-    @OneToMany(mappedBy = "account")
-    Set<Card> card = new HashSet<>();
+    @OneToMany(mappedBy = "account",cascade = CascadeType.REMOVE)
+    List<Card> card = new ArrayList<>();
 }

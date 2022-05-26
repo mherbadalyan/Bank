@@ -39,6 +39,12 @@ public class CardService {
                 return Optional.empty();
             }
 
+            if (!opAccountFromData.get().getCard().isEmpty() &&
+                    opAccountFromData.get().getCard().get(0).getType() != cardDto.getType()) {
+                logger.warn("This account can't contain card with this card type");
+                return Optional.empty();
+            }
+
             Card cardToSave =  Card.builder().
                     paymentType(cardDto.getPaymentType()).
                     type(cardDto.getType()).

@@ -62,7 +62,7 @@ public class CardController {
 
         if (cardDto.isPresent()) {
             logger.info("Card with given id found");
-            return new EntityLookupResponse<CardDto>().onSuccess(cardDto.get());
+            return ResponseEntity.status(HttpStatus.OK).body(cardDto.get().toString());
         }
         logger.warn("There is not Card with given id");
         return new EntityLookupResponse<CardDto>().onFailure("Card");

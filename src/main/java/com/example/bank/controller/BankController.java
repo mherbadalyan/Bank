@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/bank/addBank")
+@RequestMapping("/bank/")
 public class BankController {
 
     private final BankService bankService;

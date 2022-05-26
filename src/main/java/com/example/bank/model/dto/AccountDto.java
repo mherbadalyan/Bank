@@ -1,5 +1,6 @@
 package com.example.bank.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
 

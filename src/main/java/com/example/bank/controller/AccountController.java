@@ -29,10 +29,10 @@ public class AccountController {
      * Creating account
      * request body {
      *           "bankDto":{
-     *         "id":205
+     *                "id":205
      *                     },
      *     "cardHolderDto":{
-     *         "phone":"055557121"
+     *             "phone":"055557121"
      *                     }
      *               }
      */

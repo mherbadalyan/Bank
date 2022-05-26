@@ -4,6 +4,7 @@ import com.example.bank.controller.CardController;
 import com.example.bank.model.entity.Account;
 import com.example.bank.model.entity.Card;
 import com.example.bank.model.entity.Transfer;
+import com.example.bank.model.enums.CardStatus;
 import com.example.bank.repository.AccountRepository;
 import com.example.bank.repository.CardRepository;
 import com.example.bank.response.TransferResponse;
@@ -54,6 +55,11 @@ public class TransferService<T> {
             logger.info("Incorrect card number");
             return new TransferResponse<Transfer>().incorrectCardNumber();
         }
+        if (cardTo.get().getStatus() != CardStatus.ACTIVE ||
+                cardFrom.get().getStatus() != CardStatus.ACTIVE) {
+            logger.info("Selected card is not active");
+            return new TransferResponse<Transfer>().blockedCard();
+        }
         if (cardFrom.get().getAccount().getBalance() < transfer.getAmount()) {
             logger.info("Insufficient amount");
             return new TransferResponse<Transfer>().insufficientAmount();
@@ -79,6 +85,11 @@ public class TransferService<T> {
             logger.info("Incorrect account number");
             return new TransferResponse<Transfer>().incorrectAccount();
         }
+        if (cardTo.get().getStatus() != CardStatus.ACTIVE) {
+            logger.info("Selected card is not active");
+            return new TransferResponse<Transfer>().blockedCard();
+        }
+
         if (accFrom.get().getBalance() < transfer.getAmount()) {
             logger.info("Insufficient amount");
             return new TransferResponse<Transfer>().insufficientAmount();
@@ -101,10 +112,15 @@ public class TransferService<T> {
             logger.info("Incorrect account number");
             return new TransferResponse<Transfer>().incorrectAccount();
         }
+        if (cardFrom.get().getStatus() != CardStatus.ACTIVE) {
+            logger.info("Selected card is not active");
+            return new TransferResponse<Transfer>().blockedCard();
+        }
         if (cardFrom.get().getAccount().getBalance() < transfer.getAmount()) {
             logger.info("Insufficient amount");
             return new TransferResponse<Transfer>().insufficientAmount();
         }
+
         Account accFrom = cardFrom.get().getAccount();
         accFrom.setBalance(accFrom.getBalance() - transfer.getAmount());
 

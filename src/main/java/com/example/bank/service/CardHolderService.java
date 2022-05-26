@@ -10,6 +10,7 @@ import com.example.bank.repository.AddressRepository;
 import com.example.bank.repository.CardHolderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -67,9 +68,9 @@ public class CardHolderService {
         CardHolder savedCardHolder = cardHolderRepository.save(cardHolderFromData.get());
         return Optional.of(cardHolderMapper.convertToDto(savedCardHolder));
     }
-
+@Transactional
     public void deleteCardHolder(String phone) {
-        cardHolderRepository.deleteByPhone(phone);
+        cardHolderRepository.removeByPhone(phone);
     }
 
     public Optional<CardHolderDto> getCardHolder(String phone) {

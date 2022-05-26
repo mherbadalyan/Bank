@@ -26,7 +26,7 @@ public class CardHolder {
     @JoinColumn(name = "address_id",foreignKey = @ForeignKey)
     private Address address;
 
-    @OneToMany(mappedBy = "cardHolder")
+    @OneToMany(mappedBy = "cardHolder",cascade = CascadeType.ALL)
     private Set<Account> accountSet = new HashSet<>();
 
 }

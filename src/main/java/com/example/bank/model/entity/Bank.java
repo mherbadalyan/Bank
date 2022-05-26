@@ -25,6 +25,6 @@ public class Bank {
     @Column(name = "type")
     private BankType type;
 
-    @OneToMany(mappedBy = "bank")
+    @OneToMany(mappedBy = "bank",cascade = CascadeType.REMOVE)
     Set<Account> accounts = new HashSet<>();
 }
