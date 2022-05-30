@@ -1,5 +1,6 @@
 package com.example.bank.service;
 
+import com.example.bank.model.enums.CardPaymentType;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
@@ -16,15 +17,15 @@ public class GeneratorService {
         return country + bankId + first16 ;
     }
 
-    public Long cardNumberGen16Digit(String type) {
+    public Long cardNumberGen16Digit(CardPaymentType cpt) {
         Random rng = new Random();
         long randNum  = (rng.nextLong() % 10000000000000L) + 520000000000000L;
-        switch (type) {
-            case "VISA" :
+        switch (cpt) {
+            case VISA:
                 return 4000000000000000L + randNum;
-            case "MASTER_CARD" :
+            case MASTER_CARD:
                 return 5000000000000000L + randNum;
-            case "AMERICAN_EXPRESS" :
+            case AMERICAN_EXPRESS:
                 return 3000000000000000L + randNum;
         }
         return -1L;

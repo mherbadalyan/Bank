@@ -57,7 +57,7 @@ public class CardService {
 
             Long cardNumber;
             do {
-                cardNumber= genServ.cardNumberGen16Digit(cardToSave.getPaymentType().name());
+                cardNumber= genServ.cardNumberGen16Digit(cardToSave.getPaymentType());
             }while (cardRepository.existsById(cardNumber));
 
             cardToSave.setCardNumber(cardNumber);

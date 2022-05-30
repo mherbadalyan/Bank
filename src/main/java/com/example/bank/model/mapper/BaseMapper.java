@@ -15,5 +15,5 @@ public interface BaseMapper<T,E> {
         return entityCollection.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
-    };
+    }
 }
